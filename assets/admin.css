@@ -1,0 +1,98 @@
+.ability-workflows-wrap .aw-step {
+	margin-bottom: 16px;
+}
+
+.ability-workflows-wrap .aw-step-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 12px;
+}
+
+.ability-workflows-wrap .aw-step-header h3 {
+	margin: 0;
+	font-size: 14px;
+}
+
+.ability-workflows-wrap .aw-step-actions {
+	display: flex;
+	gap: 4px;
+}
+
+.ability-workflows-wrap .aw-step-body {
+	padding: 12px;
+}
+
+.ability-workflows-wrap .aw-schema {
+	margin-top: 8px;
+}
+
+.ability-workflows-wrap .aw-schema-pre,
+.ability-workflows-wrap .aw-result-pre {
+	background: #f6f7f7;
+	border: 1px solid #c3c4c7;
+	padding: 10px;
+	overflow: auto;
+	max-height: 240px;
+	font-size: 12px;
+}
+
+.ability-workflows-wrap .aw-run-panel {
+	margin-top: 32px;
+	padding-top: 24px;
+	border-top: 1px solid #c3c4c7;
+}
+
+.ability-workflows-wrap .aw-run-results {
+	margin-top: 16px;
+}
+
+.ability-workflows-wrap .aw-run-step {
+	margin-bottom: 12px;
+	border: 1px solid #c3c4c7;
+	padding: 8px 12px;
+	background: #fff;
+}
+
+.ability-workflows-wrap .aw-run-step.aw-step-fail {
+	border-color: #d63638;
+}
+
+.ability-workflows-wrap .aw-run-step.aw-step-ok {
+	border-color: #00a32a;
+}
+
+.ability-workflows-wrap .aw-warning {
+	color: #996800;
+}
+
+.ability-workflows-wrap .aw-error {
+	color: #d63638;
+}
+
+.ability-workflows-wrap #aw-run-initial-input {
+	margin-top: 8px;
+}
+
+.ability-workflows-wrap .aw-mappings-section {
+	margin: 16px 0;
+	padding: 12px;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+}
+
+.ability-workflows-wrap .aw-mappings-table th,
+.ability-workflows-wrap .aw-mappings-table td {
+	vertical-align: middle;
+}
+
+.ability-workflows-wrap .aw-mappings-table .aw-mapping-path,
+.ability-workflows-wrap .aw-mappings-table .aw-mapping-target {
+	width: 100%;
+	max-width: 220px;
+}
+
+.ability-workflows-wrap .aw-mappings-table .aw-mapping-source {
+	min-width: 140px;
+}
