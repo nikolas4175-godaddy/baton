@@ -71,12 +71,13 @@ final class Baton_Admin {
 		$table = new Baton_Workflow_List_Table();
 		$table->prepare_items();
 
-		$new_url = self::get_edit_url( 0 );
+		$new_url   = self::get_edit_url( 0 );
+		$banner_url = BATON_URL . 'assets/images/baton-banner.png';
 
-		echo '<div class="wrap baton-wrap">';
-		echo '<h1 class="wp-heading-inline">' . esc_html__( 'Baton', 'baton' ) . '</h1>';
-		echo '<a href="' . esc_url( $new_url ) . '" class="page-title-action">' . esc_html__( 'Add New', 'baton' ) . '</a>';
-		echo '<hr class="wp-header-end">';
+		echo '<div class="wrap baton-wrap baton-wrap--list">';
+		echo '<div class="baton-hero">';
+		echo '<img class="baton-hero__banner" src="' . esc_url( $banner_url ) . '" alt="' . esc_attr__( 'Baton — Orchestrating WP Abilities', 'baton' ) . '" width="1200" height="800" />';
+		echo '</div>';
 
 		if ( isset( $_GET['saved'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Workflow saved.', 'baton' ) . '</p></div>';
@@ -86,9 +87,14 @@ final class Baton_Admin {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Workflow deleted.', 'baton' ) . '</p></div>';
 		}
 
-		echo '<form method="get">';
+		echo '<form method="get" class="baton-list-form">';
 		echo '<input type="hidden" name="page" value="' . esc_attr( self::PAGE_SLUG ) . '" />';
+		echo '<div class="baton-list-toolbar">';
+		echo '<a href="' . esc_url( $new_url ) . '" class="button button-primary">' . esc_html__( 'Add Workflow', 'baton' ) . '</a>';
+		echo '<div class="baton-list-toolbar__search">';
 		$table->search_box( __( 'Search Workflows', 'baton' ), 'workflow' );
+		echo '</div>';
+		echo '</div>';
 		$table->display();
 		echo '</form>';
 		echo '</div>';
@@ -391,6 +397,8 @@ final class Baton_Admin {
 
 		if ( in_array( $action, array( 'edit', 'new' ), true ) ) {
 			self::enqueue_editor_assets();
+		} else {
+			wp_enqueue_style( 'baton-admin' );
 		}
 
 		$post_id = isset( $_GET['workflow_id'] ) ? absint( $_GET['workflow_id'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended

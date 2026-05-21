@@ -1,3 +1,54 @@
+/* List screen hero */
+.baton-wrap--list {
+	max-width: 1200px;
+}
+
+.baton-hero {
+	margin: 0 0 16px;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	background: #fff;
+	line-height: 0;
+	overflow: hidden;
+}
+
+.baton-hero__banner {
+	display: block;
+	width: 100%;
+	height: 250px;
+	max-width: 100%;
+	object-fit: contain;
+	/* Keep baton + title + tagline in frame; trim surrounding whitespace. */
+	object-position: 18% center;
+}
+
+.baton-list-toolbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+	margin: 0 0 12px;
+	flex-wrap: wrap;
+}
+
+.baton-list-toolbar__search {
+	flex: 0 1 auto;
+	margin-left: auto;
+}
+
+.baton-list-toolbar__search .search-box {
+	float: none !important;
+	margin: 0 !important;
+}
+
+.baton-list-toolbar__search .search-box label {
+	margin-right: 4px;
+}
+
+.baton-list-form .tablenav.top {
+	margin-top: 0;
+}
+
 .baton-wrap .aw-step {
 	margin-bottom: 16px;
 }

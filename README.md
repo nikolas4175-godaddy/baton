@@ -1,3 +1,5 @@
+![Baton — orchestrate WordPress workflows with the Abilities API](assets/images/baton-banner.png)
+
 # Baton
 
 A conductor’s wand, properly called a baton, is a thin, lightweight stick used by music directors to amplify and guide physical gestures.

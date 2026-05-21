@@ -22,6 +22,7 @@ import {
 	definitionFromSteps,
 	mappingRowLabel,
 	sanitizeMappingsForSave,
+	groupAbilitiesByCategory,
 } from './utils';
 
 function defaultMappingRow( stepIndex ) {
@@ -34,6 +35,42 @@ function defaultMappingRow( stepIndex ) {
 
 function FlowLine() {
 	return <div className="baton-flow-line" aria-hidden="true" />;
+}
+
+function AbilitySelect( { value, abilities, onChange } ) {
+	const groups = useMemo(
+		() =>
+			groupAbilitiesByCategory(
+				abilities,
+				__( 'Other', 'baton' )
+			),
+		[ abilities ]
+	);
+
+	return (
+		<div className="baton-ability-field">
+			<span className="baton-ability-field__label">
+				{ __( 'Ability', 'baton' ) }
+			</span>
+			<select
+				className="baton-ability-select"
+				value={ value }
+				aria-label={ __( 'Ability', 'baton' ) }
+				onChange={ ( event ) => onChange( event.target.value ) }
+			>
+				<option value="">{ __( 'Select an ability…', 'baton' ) }</option>
+				{ groups.map( ( group ) => (
+					<optgroup key={ group.label } label={ group.label }>
+						{ group.abilities.map( ( ability ) => (
+							<option key={ ability.slug } value={ ability.slug }>
+								{ ability.label } ({ ability.slug })
+							</option>
+						) ) }
+					</optgroup>
+				) ) }
+			</select>
+		</div>
+	);
 }
 
 function IoChip( { label, sublabel, summary, isSingleValue, onClick } ) {
@@ -447,29 +484,6 @@ function StepCard( {
 		ability?.output_summary?.summary || __( 'Unknown', 'baton' );
 	const isSingleInput = ability?.input_summary?.kind === 'single_value';
 
-	const abilityOptions = useMemo( () => {
-		const grouped = {};
-		abilities.forEach( ( a ) => {
-			const cat = a.category || 'Other';
-			if ( ! grouped[ cat ] ) {
-				grouped[ cat ] = [];
-			}
-			grouped[ cat ].push( a );
-		} );
-		const opts = [ { value: '', label: __( 'Select an ability…', 'baton' ) } ];
-		Object.keys( grouped )
-			.sort()
-			.forEach( ( cat ) => {
-				grouped[ cat ].forEach( ( a ) => {
-					opts.push( {
-						value: a.slug,
-						label: `${ a.label } (${ a.slug })`,
-					} );
-				} );
-			} );
-		return opts;
-	}, [ abilities ] );
-
 	return (
 		<Card className="baton-step-card">
 			<CardHeader>
@@ -513,10 +527,9 @@ function StepCard( {
 				</div>
 			</CardHeader>
 			<CardBody>
-				<SelectControl
-					label={ __( 'Ability', 'baton' ) }
+				<AbilitySelect
 					value={ step.ability }
-					options={ abilityOptions }
+					abilities={ abilities }
 					onChange={ onAbilityChange }
 				/>
 				<div className="baton-schema-section">

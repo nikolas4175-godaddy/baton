@@ -6,6 +6,34 @@ export function getAbility( abilities, slug ) {
 	return abilities.find( ( a ) => a.slug === slug ) || null;
 }
 
+/**
+ * Group abilities by category label for <optgroup> rendering.
+ *
+ * @param {Array} abilities Catalog from PHP.
+ * @param {string} otherLabel Label for uncategorized abilities.
+ * @return {Array<{ label: string, abilities: Array }>}
+ */
+export function groupAbilitiesByCategory( abilities, otherLabel = 'Other' ) {
+	const grouped = {};
+
+	abilities.forEach( ( ability ) => {
+		const cat = ability.category || otherLabel;
+		if ( ! grouped[ cat ] ) {
+			grouped[ cat ] = [];
+		}
+		grouped[ cat ].push( ability );
+	} );
+
+	return Object.keys( grouped )
+		.sort( ( a, b ) => a.localeCompare( b ) )
+		.map( ( label ) => ( {
+			label,
+			abilities: grouped[ label ].sort( ( a, b ) =>
+				a.label.localeCompare( b.label )
+			),
+		} ) );
+}
+
 export function defaultStep() {
 	return {
 		ability: '',
