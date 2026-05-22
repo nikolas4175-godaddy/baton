@@ -22,7 +22,6 @@ define( 'BATON_FILE', __FILE__ );
 define( 'BATON_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BATON_URL', plugin_dir_url( __FILE__ ) );
 
-require_once BATON_DIR . 'includes/class-legacy-cleanup.php';
 require_once BATON_DIR . 'includes/class-schema-paths.php';
 require_once BATON_DIR . 'includes/class-ability-catalog.php';
 require_once BATON_DIR . 'includes/class-input-mapper.php';

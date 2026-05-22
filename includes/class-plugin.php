@@ -62,23 +62,9 @@ final class Baton_Plugin {
 			return;
 		}
 
-		self::maybe_cleanup_legacy_data();
-
 		Baton_Workflow_CPT::register();
 		Baton_Workflow_Abilities::register();
 		Baton_Admin::register();
-	}
-
-	/**
-	 * One-time cleanup of prototype ability_workflow posts when DB is available.
-	 */
-	private static function maybe_cleanup_legacy_data(): void {
-		if ( get_option( 'baton_legacy_cleaned' ) ) {
-			return;
-		}
-
-		Baton_Legacy_Cleanup::delete_legacy_workflows();
-		update_option( 'baton_legacy_cleaned', true, false );
 	}
 
 	/**
@@ -88,8 +74,6 @@ final class Baton_Plugin {
 		if ( ! function_exists( 'wp_get_abilities' ) ) {
 			return;
 		}
-
-		Baton_Legacy_Cleanup::delete_legacy_workflows();
 
 		Baton_Workflow_CPT::register();
 		flush_rewrite_rules();
