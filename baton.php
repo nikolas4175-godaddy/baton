@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Baton
  * Description:       Create and run admin workflows from registered WordPress Abilities API abilities.
- * Version:           0.4.0
+ * Version:           1.0.0
  * Requires at least: 6.9
  * Requires PHP:      7.4
  * Author:            Nik McLaughlin
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'BATON_VERSION', '0.4.0' );
+define( 'BATON_VERSION', '1.0.0' );
 define( 'BATON_FILE', __FILE__ );
 define( 'BATON_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BATON_URL', plugin_dir_url( __FILE__ ) );
