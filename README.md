@@ -26,6 +26,8 @@ Prebuilt editor assets are included in `build/` — you do not need Node or npm 
 
 ## Usage
 
+![Baton - Workflow list view](.wordpress-org/screenshot-1.jpg)
+
 **Tools → Baton** — create workflows in the visual editor (vertical step cards, data filters on connectors), run them from the admin, and reference saved workflows as `baton/workflow-{post_id}` in other workflows.
 
 
