@@ -406,17 +406,8 @@ final class Baton_Admin {
 		$script_url = BATON_URL . 'build/index.js';
 
 		if ( ! file_exists( $asset_file ) ) {
-			add_action(
-				'admin_notices',
-				static function (): void {
-					echo '<div class="notice notice-warning"><p>';
-					echo esc_html__(
-						'Baton editor assets are missing. Run npm install && npm run build in the plugin directory.',
-						'baton'
-					);
-					echo '</p></div>';
-				}
-			);
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- dev-only diagnostic when build/ is missing.
+			error_log( 'Baton: editor assets missing (build/index.asset.php). Run npm install && npm run build in the plugin directory.' );
 			return;
 		}
 

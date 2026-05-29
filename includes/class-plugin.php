@@ -57,7 +57,10 @@ final class Baton_Plugin {
 	 */
 	public function init(): void {
 		if ( ! $this->abilities_available ) {
-			add_action( 'admin_notices', array( $this, 'render_missing_api_notice' ) );
+			if ( is_admin() ) {
+				add_action( 'admin_menu', array( $this, 'register_missing_api_menu' ) );
+				add_action( 'admin_notices', array( $this, 'render_missing_api_notice' ) );
+			}
 			return;
 		}
 
@@ -91,10 +94,46 @@ final class Baton_Plugin {
 	}
 
 	/**
-	 * Admin notice when Abilities API is missing.
+	 * Register Tools submenu when Abilities API is unavailable (notice landing page).
+	 */
+	public function register_missing_api_menu(): void {
+		add_submenu_page(
+			'tools.php',
+			__( 'Baton', 'baton' ),
+			__( 'Baton', 'baton' ),
+			'manage_options',
+			Baton_Admin::PAGE_SLUG,
+			array( $this, 'render_missing_api_page' )
+		);
+	}
+
+	/**
+	 * Minimal Baton screen when Abilities API is missing; notice renders via admin_notices.
+	 */
+	public function render_missing_api_page(): void {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'baton' ) );
+		}
+
+		echo '<div class="wrap">';
+		echo '<h1>' . esc_html__( 'Baton', 'baton' ) . '</h1>';
+		echo '</div>';
+	}
+
+	/**
+	 * Admin notice when Abilities API is missing (Tools → Baton only).
 	 */
 	public function render_missing_api_notice(): void {
-		if ( ! current_user_can( 'activate_plugins' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		global $pagenow;
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- screen routing only.
+		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+
+		if ( 'tools.php' !== $pagenow || Baton_Admin::PAGE_SLUG !== $page ) {
 			return;
 		}
 

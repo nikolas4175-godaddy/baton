@@ -71,7 +71,13 @@ Use this document before requesting a plugin slug or uploading to SVN. Re-run af
 
 ### Guideline 11: No Admin Dashboard Hijacking — **PASS**
 
-- Single menu under Tools; no dashboard takeover or unrelated notices
+- Single submenu under **Tools → Baton** (`add_submenu_page` on `tools.php`); no top-level menu or dashboard widgets
+- Admin CSS/JS enqueued only on `tools_page_baton` (`enqueue_assets()` early return)
+- No upgrade prompts, upsells, tracking pixels, or external admin iframes
+- **Abilities API missing:** compatibility notice on `admin_notices` is scoped to **Tools → Baton** only (`tools.php` + `page=baton`); minimal menu stub registers that screen when the API is unavailable
+- **Missing editor build (dev):** no admin notice; `error_log()` when `build/index.asset.php` is absent (visible in `debug.log` when `WP_DEBUG_LOG` is enabled)
+- Operational notices (save/delete/error) and React editor help `Notice` components appear only on Baton workflow screens
+- List hero banner is branding on the Baton list screen only, not site-wide
 
 ### Guideline 12: No Readme Spam — **PASS**
 
